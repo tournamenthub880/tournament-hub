@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tournament Hub</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:white}
+header{padding:22px 16px;background:#151d35;text-align:center}
+header h1{margin:0;color:#00e6a0}
+header p{color:#c4cbe0}
+.hero{padding:28px 18px;text-align:center;background:linear-gradient(135deg,#172554,#312e81)}
+.hero h2{font-size:28px;margin:0 0 12px}
+.hero p{color:#dbeafe}
+.container{padding:18px;max-width:850px;margin:auto}
+.section-title{margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{background:#172036;border:1px solid #2c3857;border-radius:14px;padding:18px 12px;text-align:center}
+.icon{font-size:36px}
+.card h3{margin:10px 0}
+.card p{color:#c4cbe0;font-size:14px}
+button{background:#00d995;color:#06151a;border:0;border-radius:8px;padding:11px 14px;font-weight:bold;cursor:pointer}
+.notice{margin-top:20px;background:#172036;padding:16px;border-radius:12px;color:#dbeafe;line-height:1.6}
+footer{text-align:center;padding:22px;color:#9ca8c5;font-size:13px}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>🏆 Tournament Hub</h1>
+<p>Play • Compete • Win</p>
+</header><section class="hero">
+<h2>Your Game, Your Tournament!</h2>
+<p>Discover tournaments and compete with other players.</p>
+<button onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">Explore Tournaments</button>
+</section><main class="container" id="games">
+<h2 class="section-title">🎮 Available Games</h2>
+<div class="grid">
+<div class="card">
+<div class="icon">🎲</div>
+<h3>Ludo King</h3>
+<p>Entry Fee: ₹20</p>
+<button onclick="showMessage('Ludo King')">View Tournament</button>
+</div>
+<div class="card">
+<div class="icon">🔥</div>
+<h3>Free Fire</h3>
+<p>Upcoming tournaments</p>
+<button onclick="showMessage('Free Fire')">View Tournament</button>
+</div>
+<div class="card">
+<div class="icon">🏏</div>
+<h3>Cricket</h3>
+<p>Upcoming tournaments</p>
+<button onclick="showMessage('Cricket')">View Tournament</button>
+</div>
+<div class="card">
+<div class="icon">⚽</div>
+<h3>Football</h3>
+<p>Upcoming tournaments</p>
+<button onclick="showMessage('Football')">View Tournament</button>
+</div>
+</div><div class="notice">
+<strong>📢 Tournament Notice</strong><br>
+Tournament schedules and registration details will be announced here.
+<br><br>
+<strong>⚠️ Note:</strong> This is an initial demo. Registration, payments and tournament confirmation are not active yet.
+</div>
+</main><footer>
+© 2026 Tournament Hub. All rights reserved.
+</footer><script>
+function showMessage(game){
+alert(game+' tournament details will be available soon!');
+}
+</script></body>
+  </html>
