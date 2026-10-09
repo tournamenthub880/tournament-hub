@@ -1,34 +1,75 @@
 <!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tournament Hub</title>
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tournament Hub</title><style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#fff}
-header{text-align:center;padding:22px;background:#151d35}
-header h1{color:#00e6a0;margin:0}
-.hero{text-align:center;padding:25px 15px;background:#202b55}
-.container{max-width:500px;margin:20px auto;padding:16px}
-.card{background:#172036;border:1px solid #35415e;padding:20px;border-radius:14px}
-h2{margin-top:0}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:white}
+header{background:#151d35;padding:18px;text-align:center}
+header h1{margin:0;color:#00e6a0}
+header p{color:#c4cbe0;margin-bottom:0}
+nav{display:flex;justify-content:center;gap:18px;padding:14px;background:#10182b;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-weight:bold}
+.hero{text-align:center;padding:38px 15px;background:linear-gradient(135deg,#172554,#312e81)}
+.hero h2{font-size:28px;margin-top:0}
+.hero p{color:#dbeafe;line-height:1.6}
+.container{max-width:900px;margin:auto;padding:20px 15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.card{background:#172036;border:1px solid #35415e;border-radius:14px;padding:20px 12px;text-align:center}
+.icon{font-size:42px}
+.card h3{margin:10px 0}
+.card p{color:#c4cbe0}
+button{background:#00d995;color:#06151a;border:0;border-radius:8px;padding:12px 16px;font-weight:bold;cursor:pointer}
+.card button{width:100%}
+.formbox{display:none;max-width:500px;margin:20px auto;background:#172036;border:1px solid #35415e;border-radius:14px;padding:20px}
 label{display:block;margin:14px 0 6px}
-input,select{width:100%;padding:12px;border-radius:7px;border:1px solid #53617c;background:#0b1020;color:#fff}
-button{width:100%;margin-top:18px;padding:13px;border:0;border-radius:8px;background:#00d995;color:#06151a;font-weight:bold;font-size:16px}
-.note{color:#c4cbe0;font-size:13px;line-height:1.6}
-footer{text-align:center;color:#aab4ca;padding:20px}
-</style>
-</head>
-<body>
+input,select{width:100%;padding:12px;border:1px solid #53617c;border-radius:7px;background:#0b1020;color:white}
+.formbox button{width:100%;margin-top:16px}
+.notice{background:#172036;border-radius:12px;padding:16px;line-height:1.6;color:#dbeafe}
+.small{font-size:13px;color:#b8c4dc;line-height:1.6}
+footer{text-align:center;padding:24px;color:#9ca8c5}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+</style></head><body>
 <header>
 <h1>🏆 Tournament Hub</h1>
 <p>Play • Compete • Win</p>
-</header><section class="hero">
-<h2>🎲 Ludo King Tournament</h2>
-<p>Entry Fee: ₹20</p>
-</section><main class="container">
+</header><nav>
+<a href="#home">Home</a>
+<a href="#games">Tournaments</a>
+<a href="#results">Results</a>
+</nav><section class="hero" id="home">
+<h2>Your Game, Your Tournament!</h2>
+<p>Discover tournaments and compete with other players.</p>
+<button onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">
+Explore Tournaments
+</button>
+</section><main class="container" id="games">
+<h2>🎮 Available Tournaments</h2><div class="grid">
 <div class="card">
-<h2>📝 Player Registration</h2><form id="registrationForm">
+<div class="icon">🎲</div>
+<h3>Ludo King</h3>
+<p>Entry Fee: ₹20</p>
+<button onclick="openForm('Ludo King')">Register Now</button>
+</div><div class="card">
+<div class="icon">🔥</div>
+<h3>Free Fire</h3>
+<p>Coming Soon</p>
+<button onclick="comingSoon()">View Tournament</button>
+</div><div class="card">
+<div class="icon">🏏</div>
+<h3>Cricket</h3>
+<p>Coming Soon</p>
+<button onclick="comingSoon()">View Tournament</button>
+</div><div class="card">
+<div class="icon">⚽</div>
+<h3>Football</h3>
+<p>Coming Soon</p>
+<button onclick="comingSoon()">View Tournament</button>
+</div>
+</div>
+</main><section class="formbox" id="registration">
+<h2>📝 Player Registration</h2>
+<p id="selectedTournament"></p><form id="registrationForm">
 <label for="name">Player Name</label>
 <input id="name" name="name" required maxlength="60" placeholder="Enter your name"><label for="mobile">Mobile Number</label>
 <input id="mobile" name="mobile" type="tel" required pattern="[0-9]{10}" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number">
@@ -37,23 +78,37 @@ footer{text-align:center;color:#aab4ca;padding:20px}
 <input id="gameid" name="gameid" required maxlength="50" placeholder="Enter your game ID">
 
 <label for="tournament">Tournament</label>
-<select id="tournament" name="tournament" required>
+<select id="tournament" name="tournament">
 
 <option value="Ludo King">Ludo King Tournament</option>
 </select><p><strong>Entry Fee: ₹20</strong></p>
 <button type="submit">Submit Registration</button>
-</form><p class="note">
-Demo only: This form does not send or save your information.
-Payment is not collected, and registration is not confirmed.
-Do not enter real personal information in this demo.
-</p>
+<button type="button" onclick="closeForm()" style="background:#53617c;color:white">Cancel</button>
+</form><p class="small">Demo only: This form does not save or send information. No payment is collected, and registration is not confirmed.</p>
 <div id="message" role="status"></div>
+</section><section class="container" id="results">
+<h2>🏆 Tournament Results</h2>
+<div class="notice">
+Results will be announced here after tournaments are completed.
 </div>
-</main><footer>© 2026 Tournament Hub</footer><script>
+</section><footer>
+© 2026 Tournament Hub
+</footer><script>
+function openForm(game){
+document.getElementById('registration').style.display='block';
+document.getElementById('selectedTournament').textContent='Tournament: '+game;
+document.getElementById('tournament').value=game;
+document.getElementById('registration').scrollIntoView({behavior:'smooth'});
+}
+function closeForm(){
+document.getElementById('registration').style.display='none';
+}
+function comingSoon(){
+alert('This tournament is coming soon!');
+}
 document.getElementById('registrationForm').addEventListener('submit',function(event){
 event.preventDefault();
-document.getElementById('message').textContent =
-'Demo successful! Your information has not been saved. Registration is not confirmed.';
+document.getElementById('message').textContent='Demo only: Your details have not been saved. Registration is not confirmed.';
 });
 </script></body>
 </html>
